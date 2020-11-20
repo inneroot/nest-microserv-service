@@ -6,10 +6,9 @@ import { Logger } from '@nestjs/common';
 const logger = new Logger('service')
 
 const microserviceOptions: MicroserviceOptions = {
-  transport: Transport.TCP,
+  transport: Transport.NATS,
   options: {
-    host: '127.0.0.1',
-    port: 8877
+    url: 'nats://localhost:4222',
   },
 }
 
