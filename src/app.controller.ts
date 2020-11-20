@@ -9,9 +9,9 @@ export class AppController {
 
   @MessagePattern('message')
   async getHello(data: string) {
-    this.logger.log(`reseaved: ${data}`)
+    this.logger.log(`reseaved: ${JSON.stringify(data)}`)
     const response = this.appService.getResponse(data)
-    this.logger.log(`returning: ${response}`)
+    this.logger.log(`returning: ${JSON.stringify(response)}`)
     return response
   }
 }

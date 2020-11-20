@@ -6,7 +6,7 @@ export class AppService {
     return 'Hello World!';
   }
 
-  getResponse(msg: string){
-    return msg + ' and return from service'
+  getResponse(data){
+    return {msg: data.msg + ' and return from service'}
   }
 }
