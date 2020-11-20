@@ -1,19 +1,21 @@
-import { Logger } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
-import { Transport } from '@nestjs/microservices';
 import { AppModule } from './app.module';
+import { MicroserviceOptions, Transport } from '@nestjs/microservices';
+import { Logger } from '@nestjs/common';
 
+const logger = new Logger('service')
 
-const MicroserviceOptions = {
-  transport: Transport.NATS,
+const microserviceOptions: MicroserviceOptions = {
+  transport: Transport.TCP,
   options: {
-    url: 'nats://localhost:4222',
+    host: '127.0.0.1',
+    port: 8877
   },
 }
 
 async function bootstrap() {
-  const app = await NestFactory.createMicroservice(AppModule, MicroserviceOptions);
-  app.listen(() => console.log('Microservice is listening...'));
+  const app = await NestFactory.createMicroservice(AppModule, microserviceOptions);
+  app.listen(() => logger.log('Microservice is listening...'));
 }
 
 bootstrap();
