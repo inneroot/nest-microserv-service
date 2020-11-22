@@ -1,4 +1,4 @@
-import { Controller, Get, Logger } from '@nestjs/common';
+import { Controller, Logger } from '@nestjs/common';
 import { AppService } from './app.service';
 import { Ctx, MessagePattern, NatsContext, Payload } from '@nestjs/microservices'
 
@@ -8,8 +8,9 @@ export class AppController {
   constructor(private readonly appService: AppService) {}
 
   @MessagePattern('message')
-  async getHello(@Payload() data: number[], @Ctx() context: NatsContext) {
-    this.logger.log(`reseaved: ${JSON.stringify(data)}`)
+  async getHello(@Payload() data: any, @Ctx() context: NatsContext) {
+    this.logger.log('message received')
+    this.logger.log(`received: ${JSON.stringify(data)}`)
     this.logger.log(context)
     const response = this.appService.getResponse(data)
     this.logger.log(`returning: ${JSON.stringify(response)}`)
